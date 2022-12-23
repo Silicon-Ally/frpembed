@@ -6,7 +6,7 @@
 //
 // Example usage:
 //
-//  proxyOpt := frpembed.WithProxies(frp.ProxyConfig{
+//  proxyOpt := frpembed.WithProxies(frpembed.ProxyConfig{
 //    Name: "web-server",
 //    TargetDomain: "mysite.frp.mydomain.com",
 //    UseEncryption: true,
@@ -14,7 +14,7 @@
 //    LocalPort: 8080,
 //  })
 //  if err := frpembed.Run(ctx, "frp.mydomain.com", "secret-token-123", proxyOpt); err != nil {
-//    log.Fatalf("error while running frp client: %w", err)
+//    log.Fatalf("error while running frp client: %v", err)
 //  }
 //
 // Check out the examples/ directory for more, well, examples.
@@ -113,6 +113,12 @@ func (c *config) validate() error {
 	customLoggerSet := c.CustomLogger != nil
 	if adapterSet && customLoggerSet {
 		return errors.New("can only set one of adapter logger or custom logger")
+	}
+	switch c.AdapterName {
+	case "console", "file", "smtp", "conn", "":
+		// Expected.
+	default:
+		return fmt.Errorf("unsupported logging adapter %q", c.AdapterName)
 	}
 
 	for _, pc := range c.proxies {
