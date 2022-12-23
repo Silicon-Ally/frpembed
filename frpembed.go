@@ -161,9 +161,13 @@ func Run(ctx context.Context, serverAddr string, token string, opts ...ConfigOpt
 		})
 		// We assume there's no config for a custom logger. If there is, the caller can
 		// include it directly in their custom implementation.
-		frplog.Log.SetLogger("custom", "")
+		if err := frplog.Log.SetLogger("custom", ""); err != nil {
+			return fmt.Errorf("failed to set custom logger: %w", err)
+		}
 	case cfg.AdapterName != "":
-		frplog.Log.SetLogger(cfg.AdapterName, cfg.AdapterConfig...)
+		if err := frplog.Log.SetLogger(cfg.AdapterName, cfg.AdapterConfig...); err != nil {
+			return fmt.Errorf("failed to set %q logger: %w", cfg.AdapterName, err)
+		}
 	}
 
 	proxyConf := make(map[string]frpconfig.ProxyConf)
