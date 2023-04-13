@@ -14,3 +14,8 @@ details and usage instructions.
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/Silicon-Ally/frpembed?status.svg)](https://pkg.go.dev/github.com/Silicon-Ally/frpembed?tab=doc)
 [![CI Workflow](https://github.com/Silicon-Ally/frpembed/actions/workflows/test.yml/badge.svg)](https://github.com/Silicon-Ally/frpembed/actions?query=branch%3Amain)
+
+## Contributing
+
+Contribution guidelines can be found [on our website](https://siliconally.org/oss/contributor-guidelines).
+
